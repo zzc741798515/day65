@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>变量和常量</title>
+</head>
+<body>
+
+    <script>
+        /*
+        * 使用var声明的变量:
+        * 变量作用域自动提升规则
+        * 1.如果在函数里，不管在函数的哪个位置声明，自动提升到整个函数中有效
+        * 2.如果是函数外面声明，则为全局
+        * */
+
+        function f1() {
+            if(true){
+                var msg = '我是es6';
+                console.log(msg);
+            }
+            console.log(msg);
+        }
+        // console.log(msg);
+        f1();
+
+        console.log("------------es6声明局部变量--------------")
+        /*
+        * let:用于声明变量在当前语句块作用域内有效     局部变量
+        * */
+        function  f2() {
+            if(true){
+                let msg = '我是es6';
+                console.log(msg);
+            }
+            console.log(msg);
+        }
+        // f2();
+
+        console.log("------------es6声明常量--------------")
+        let username = "张无忌";
+        username = "张无忌2";
+        console.log(username);
+
+        const username2 = "赵敏";//常量声明后不可改变
+        username2 = "赵敏2";
+        console.log(username2);
+
+
+
+    </script>
+
+
+
+</body>
+</html>

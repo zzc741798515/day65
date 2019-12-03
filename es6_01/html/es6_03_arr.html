@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>es6箭头函数</title>
+</head>
+<body>
+
+
+    <script>
+        //ES5用法
+        function add(a,b){
+            return a+b;
+        }
+        console.log(add(100,200));
+
+//箭头函数可以省略function关键字
+        let fun1 = (a,b) => {
+            return a+b;
+        }
+        console.log(fun1(11,22));
+
+        //箭头函数可以省略return关键字
+        let fun2 = (a,b) => a+b;
+        console.log(fun2(22,33));
+
+        //箭头函数可以自动继承上下文的this
+
+    </script>
+</body>
+</html>

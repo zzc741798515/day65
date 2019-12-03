@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+
+    <link rel="stylesheet" href="../css/metroStyle/metroStyle.css">
+    <script src="../js/vue.js"></script>
+    <script src="../js/jquery.js"></script>
+    <script src="../js/jquery.ztree.core.js"></script>
+</head>
+<body>
+<div id="treeDiv" style="height: 100px;">
+    <input style="width: 100px;" @focus="showTree(true)" v-model="name" @keydown.enter="search"/>
+    <!--ul用于生成菜单树 注意默认class为ztree   -->
+    <ul id="treeDemo" class="ztree" v-show="isShow">
+
+    </ul>
+</div>
+<script>
+    new Vue({
+        el: '#treeDiv',
+        data: function () {
+            return {
+                name: '',
+                isShow: true,
+                setting: {
+                    data: {
+                        key: {
+                            title: "fullName",
+                        },
+                        simpleData: {
+                            enable: true
+                        }
+                    },
+                    callback: {
+                        beforeClick: this.beforeClick,
+                        onClick: this.onClick
+                    },
+                    view:{
+                        fontCss:this.setCss
+                    }
+                },
+                nodes: [
+                    {id: 1, name: "父节点1", pId: 0},
+                    {id: 2, name: "父节点2", pId: 0},
+                    {id: 3, name: "父节点1字节的1", pId: 1},
+                    {id: 4, name: "父节点2字节的1", pId: 2},
+                    {id: 5, name: "父节点2字节的2", pId: 2}
+                ],
+                treeObj:{}
+            }
+        },
+        methods: {
+            initTree: function () {
+                let treeObj = $.fn.zTree.init($("#treeDemo"), this.setting, this.nodes);
+                this.treeObj=treeObj;
+                console.log(treeObj);
+            },
+            showTree: function (flag) {
+
+            },
+            beforeClick: function (event, treeId, treeNode) {
+                // console.log(treeId);
+                // console.log(treeNode);
+            },
+            onClick: function (event, treeId, treeNode) {
+                console.log(treeId);
+                console.log(treeNode);
+                this.name=treeNode.name;
+            },
+            search:function () {
+                // console.log(this.name);
+                let nodes=this.treeObj.getNodesByParamFuzzy("name",this.name,null)
+                // console.log(nodes);
+                // console.log(this.treeObj.getNodes());
+                let treeNodes=this.treeObj.transformToArray(this.treeObj.getNodes());
+                // console.log(treeNodes);
+                for (let index in treeNodes){
+                    treeNodes[index].higtLine=false;
+                    this.treeObj.updateNode(treeNodes[index]);
+                }
+
+                for (let index in treeNodes) {
+                    console.log(treeNodes[index]);
+
+                    for (let nodeIndex in nodes) {
+                        if (treeNodes[index].id==nodes[nodeIndex].id){
+                            treeNodes[index].higtLine=true;
+                            this.treeObj.updateNode(treeNodes[index])
+                        }
+                    }
+                }
+            },
+            setCss:function (treeId,treeNode) {
+                return treeNode.higtLine?{color:"red"}:{color:''};
+            }
+        },
+        mounted: function () {
+            this.initTree();
+        }
+    })
+</script>
+</body>
+</html>

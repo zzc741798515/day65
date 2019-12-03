@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="UEdtior:war">
+    <output-path>$PROJECT_DIR$/UEdtior/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>UEdtior</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="UEdtior-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="UEdtior:war exploded" />
+    </root>
+  </artifact>
+</component>

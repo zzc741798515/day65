@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="/ueditor/">
+    <meta charset="UTF-8">
+    <title>富文本编辑器使用示例</title>
+    <script src="static/js/jquery/jquery.js"></script>
+    <!--vue-->
+    <script src="static/js/vue/vue.js"></script>
+    <script src="static/js/vue/axios.js"></script>
+    <!--富文本编辑器-->
+    <script src="static/js/ueditor/ueditor.all.js"></script>
+    <script src="static/js/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <script src="static/js/ueditor/ueditor.config.js"></script>
+    <!--vue整合富文本编辑器插件-->
+    <script src="static/js/vue-ueditor-wrap.min.js"></script>
+    <!--
+    一、前端配置
+    1.相关js文件和富文本编辑器配置js文件
+    2.在vue中添加components注册VueUeditorWrap
+    3.在页面添加富文本标签   vue-ueditor-wrap   ，会根据标签v-model显示内容，根据:config="myconfig"的配置设置进行相关默认配置操作
+    4.在vue接管数据对象myconfig中添加UEDITOR_HOME_URL属性，设置前端资源访问的默认相对路径   并通过serverUrl设置后端统一访问接口的默认路径
+
+    二、后端配置
+    1.导入依赖，ueditor：1.1.2需要手动打包到本地仓库
+    2.将原码的jsp目录下的\jsp\src目录内容复制到项目的src下
+    3.将config.json复制到resources下
+    4.编写统一接口响应Controller，根据请求action参数的值，设置不同处理逻辑，返回固定格式json数据
+    {"state": "SUCCESS","original": "111.jpg","size": "124147","title": "1535961757878095151.jpg","type": ".jpg","url": "/1535961757878095151.jpg"}
+    -->
+</head>
+<body>
+
+    <div id="app">
+        <!--
+            该组件标签是由VueUeditorWrap定义的
+            v-model:设置组件上绑定的值
+            :config  设置配置对象  如果不设置，默认规则:
+            首先富文本编辑器 ueditor.all.js会自动加载当前的ueditor.config.js，取出js配置
+            接着vue-ueditor-wrap.min.js插件会自动覆盖一些配置文件中的配置信息,包括UEDITOR_HOME_URL，会导致其
+            加载ueditor.all.min.js失败，需要自定一配置
+
+        -->
+        <vue-ueditor-wrap v-model="msg" :config="myconfig"></vue-ueditor-wrap>
+    </div>
+
+    <script>
+       let app = new Vue({
+            el:'#app',
+            data:{
+               msg: '<h2><img src="http://img.baidu.com/hi/jx2/j_0003.gif"/>Vue + UEditor + v-model双向绑定</h2>',
+               myconfig: {
+                   //为编辑器实例添加一个路径  该路径需要定位到ueditor下  base+"static/js/ueditor/"
+                   UEDITOR_HOME_URL: "static/js/ueditor/"
+                   // 服务器统一请求接口路径
+                   , serverUrl: "ueditor/execute"
+               }
+
+            },
+            methods:{
+
+            },
+           components:{//组件配置，用于设置当前vue对象使用的组件
+               VueUeditorWrap//引入vue和ueditor结合的组件
+           },
+           updated:function(){
+             console.log(this.msg);
+            }
+        })
+
+    </script>
+</body>
+</html>

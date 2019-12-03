@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title></title>
+
+    <link rel="stylesheet" href="../css/metroStyle/metroStyle.css">
+    <script src="../js/vue.js"></script>
+    <script src="../js/jquery.js"></script>
+    <script src="../js/jquery.ztree.core.js"></script>
+</head>
+<body>
+<div id="treeDiv" style="height: 100px;">
+    <input style="width: 100px;" @focus="showTree(true)" v-model="name"/>
+    <!--ul用于生成菜单树 注意默认class为ztree   -->
+    <ul id="treeDemo" class="ztree" v-show="isShow">
+
+    </ul>
+</div>
+<script>
+    new Vue({
+        el: '#treeDiv',
+        data: function () {
+            return {
+                name: '',
+                isShow: true,
+                setting: {
+                    data: {
+                        key: {
+                            title: "fullName",
+                        },
+                        simpleData: {
+                            enable: true
+                        }
+                    },
+                    callback: {
+                        beforeClick: this.beforeClick,
+                        onClick: this.onClick
+                    }
+                },
+                nodes: [
+                    {id: 1, name: "父节点1", pId: 0},
+                    {id: 2, name: "父节点2", pId: 0},
+                    {id: 3, name: "父节点1字节的1", pId: 1},
+                    {id: 4, name: "父节点2字节的1", pId: 2},
+                    {id: 5, name: "父节点2字节的2", pId: 2}
+                ]
+            }
+        },
+        methods: {
+            initTree: function () {
+                let treeObj = $.fn.zTree.init($("#treeDemo"), this.setting, this.nodes);
+                console.log(treeObj);
+            },
+            showTree: function (flag) {
+
+            },
+            beforeClick: function (event, treeId, treeNode) {
+                console.log(treeId);
+                console.log(treeNode);
+            },
+            onClick: function (event, treeId, treeNode) {
+                console.log(treeId);
+                console.log(treeNode);
+                this.name=treeNode.name;
+            }
+        },
+        mounted: function () {
+            this.initTree();
+        }
+    })
+</script>
+</body>
+</html>

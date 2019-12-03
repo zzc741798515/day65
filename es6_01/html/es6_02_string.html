@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="div1">
+        我是div
+    </div>
+
+<!--
+es6提供了模板字符串语法:
+1.字符串变量拼接    ``声明字符串     ${}占位符
+2.字符串多行数据，多“符号的处理拼接
+-->
+    <script>
+        let username = "张飞";
+        console.log("欢迎你,"+username+"!");
+
+
+        let username2 = "关羽";
+        console.log(`欢迎你,${username2}!`)
+
+        console.log("-----------------------------------")
+        let html = '<div id="div1">\n' +
+            '        我是div\n' +
+            '    </div>'
+        console.log(html);
+
+        let html2 = `<div id="div1">
+        我是div
+    </div>`
+        console.log(html2);
+
+
+
+    </script>
+
+</body>
+</html>
