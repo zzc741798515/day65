@@ -23,7 +23,7 @@
                     <dependency>
                         <groupId>mysql</groupId>
                         <artifactId>mysql-connector-java</artifactId>
-                        <version>5.1.35</version>
+                        <version>8.0.28</version>
                     </dependency>
                     <dependency><!--通用mapper依赖-->
                         <groupId>tk.mybatis</groupId>
@@ -70,7 +70,7 @@
         <dependency><!--数据库-->
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.35</version>
+            <version>8.0.28</version>
         </dependency>
         <dependency><!--druid连接池-->
             <groupId>com.alibaba</groupId>
